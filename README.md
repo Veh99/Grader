@@ -15,7 +15,7 @@
 ## Клонирование на новом компьютере
 
 ```powershell
-git clone --recurse-submodules <PRIVATE_REPOSITORY_URL>
+git clone --recurse-submodules https://github.com/Veh99/Grader.git
 Set-Location 'dotnet-interview-prep'
 git submodule status --recursive
 ./scripts/Test-Workspace.ps1
