@@ -1,0 +1,9 @@
+[submodule "evidence/repositories/LawyerAI"]
+	path = evidence/repositories/LawyerAI
+	url = https://github.com/Veh99/LawyerAI.git
+[submodule "evidence/repositories/Secret_Project"]
+	path = evidence/repositories/Secret_Project
+	url = https://github.com/eviolspirid777/Secret_Project.git
+[submodule "evidence/repositories/ValikuloDance"]
+	path = evidence/repositories/ValikuloDance
+	url = https://github.com/Veh99/ValikuloDance.git

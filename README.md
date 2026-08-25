@@ -1,0 +1,61 @@
+# .NET interview preparation workspace
+
+Переносимое рабочее пространство подготовки к Middle+/Senior .NET backend интервью для российского бигтеха.
+
+## Source of truth
+
+- `HANDOFF.md` — текущая точка и инструкция продолжения.
+- `profile.md` — цель, опыт и калибровка роли.
+- `plan.md` — адаптивная программа на 2–3 месяца.
+- `progress.md` — оценки и наблюдаемое evidence.
+- `sprints/` — текущие учебные спринты.
+- `sessions/` — отчёты отдельных сессий.
+- `evidence/repositories/` — read-only Git submodules с проектами кандидата.
+
+## Клонирование на новом компьютере
+
+```powershell
+git clone --recurse-submodules <PRIVATE_REPOSITORY_URL>
+Set-Location 'dotnet-interview-prep'
+git submodule status --recursive
+```
+
+Если репозиторий уже клонирован без submodules:
+
+```powershell
+git submodule update --init --recursive
+```
+
+Открой каталог в Codex и попроси:
+
+```text
+Прочитай AGENTS.md и HANDOFF.md, затем продолжи подготовку с текущей точки.
+```
+
+## Работа с двух компьютеров
+
+Перед занятием:
+
+```powershell
+git pull --ff-only
+git submodule update --init --recursive
+```
+
+После занятия:
+
+```powershell
+git status
+git add HANDOFF.md progress.md sessions sprints
+git commit -m "Record interview preparation progress"
+git push
+```
+
+Перед сменой компьютера всегда выполни `push`. Evidence-submodules не обновляй без отдельного решения: superproject намеренно закрепляет точные commit SHA.
+
+## Security
+
+В публичных evidence-репозиториях ранее обнаружены реальные-looking credentials в tracked configuration files. Submodules не копируют их содержимое в историю этого superproject, но credentials необходимо отозвать/ротировать в исходных проектах. Не добавляй реальные секреты даже в private repository.
+
+## Восстановление
+
+После первого push выполни тестовое клонирование в отдельный каталог с `--recurse-submodules`. Дополнительно храни датированный AES-256 архив с проверенным SHA-256 вне GitHub. Не синхронизируй живой `.git` через файловую облачную синхронизацию.

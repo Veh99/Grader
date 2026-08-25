@@ -1,0 +1,28 @@
+# Local IDE and build artifacts
+**/.vs/
+**/.idea/
+**/bin/
+**/obj/
+**/node_modules/
+*.user
+*.suo
+
+# Machine-local configuration and secrets
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+*.pfx
+*.pem
+*.key
+
+# Local transfer and backup artifacts
+*.7z
+*.zip
+*.bundle
+*.sha256
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
