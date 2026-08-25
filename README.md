@@ -18,6 +18,7 @@
 git clone --recurse-submodules <PRIVATE_REPOSITORY_URL>
 Set-Location 'dotnet-interview-prep'
 git submodule status --recursive
+./scripts/Test-Workspace.ps1
 ```
 
 Если репозиторий уже клонирован без submodules:
@@ -55,6 +56,8 @@ git push
 ## Security
 
 В публичных evidence-репозиториях ранее обнаружены реальные-looking credentials в tracked configuration files. Submodules не копируют их содержимое в историю этого superproject, но credentials необходимо отозвать/ротировать в исходных проектах. Не добавляй реальные секреты даже в private repository.
+
+Точный checklist без значений credentials находится в `SECURITY.md`.
 
 ## Восстановление
 
