@@ -1,6 +1,6 @@
 # Handoff
 
-Обновлено: 2026-08-25
+Обновлено: 2026-08-28
 
 ## Цель
 
@@ -13,7 +13,7 @@
 
 ## Как продолжать
 
-1. Прочитать `AGENTS.md`, `profile.md`, `plan.md`, `progress.md` и `sprints/week-01-foundations.md`.
+1. Прочитать `AGENTS.md`, `profile.md`, `plan.md`, `progress.md`, `algorithms.md` и `sprints/week-01-foundations.md`.
 2. Считать `progress.md` source of truth для оценок; не повышать уровень по ответам после подсказки.
 3. Продолжать по одному вопросу за раз.
 4. Если теория неизвестна, сначала объяснить её и затем дать короткое закрепление; не оценивать незнакомую теорию как независимый провал.
@@ -60,6 +60,18 @@ static async Task ProduceAsync(
 3. Перейти к практической bounded-channel реализации с 20 consumers.
 4. Выполнить delayed retest по EF tracking, индексам и READ COMMITTED.
 
+## Второй чат: алгоритмические задачи
+
+В проекте есть параллельный чат по алгоритмическим задачам. Portable source of truth для него: `algorithms.md`.
+
+Текущая политика:
+
+- не смешивать алгоритмический evidence с backend-readiness оценками в `progress.md`;
+- после каждой значимой алгоритмической задачи обновлять `algorithms.md`;
+- если во втором чате есть незаписанные задачи, сначала восстановить их из контекста того чата и только затем продолжать;
+- оценивать не только факт AC, но и объяснение инварианта, сложность, edge cases и качество коммуникации.
+
+На момент этого handoff подробная история алгоритмического чата не была сохранена в файлах проекта, поэтому `algorithms.md` содержит стартовый переносимый протокол и явный gap по фактическому evidence.
 ## Текущий readiness
 
 Baseline: Middle по фундаментальному backend reasoning, отдельные Middle+ сигналы по messaging/idempotency. До стабильного Middle+/Senior пока не хватает независимого evidence по SQL/indexes/transactions, async semantics, testing и production diagnosis.
@@ -69,3 +81,4 @@ Baseline: Middle по фундаментальному backend reasoning, отд
 - `$dotnet-interview-coach` — внешняя user-scoped зависимость и может отсутствовать на другом компьютере. При её отсутствии следовать `AGENTS.md` и текущим Markdown-файлам.
 - Evidence-проекты должны быть read-only submodules на commit SHA, записанных в `.gitmodules` и Git index.
 - Не читать и не публиковать значения секретов из конфигураций evidence-проектов.
+- Перед сменой ПК: `git status`, `git add HANDOFF.md profile.md plan.md progress.md algorithms.md README.md sprints sessions`, `git commit`, `git push`.

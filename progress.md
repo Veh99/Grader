@@ -1,6 +1,6 @@
 # Прогресс подготовки
 
-Обновлено: 2026-08-18
+Обновлено: 2026-08-28
 
 ## Текущий статус
 
@@ -8,6 +8,7 @@
 - Целевой уровень: уверенный Middle+; Senior-сигналы как differentiator.
 - Readiness: не оценена — пока отсутствует независимое evidence.
 - Assistance policy: closed-book, без поиска и AI; ответы `independent`, если подсказки не запрошены.
+- Параллельный алгоритмический чат ведётся отдельно; переносимый source of truth: `algorithms.md`.
 
 ## Домены
 
@@ -457,6 +458,12 @@
 - Interview preparation paused at the Channel producer-completion question while the workspace is made portable between computers.
 - Exact continuation point is recorded in `HANDOFF.md`.
 
+### 2026-08-28 — portability checkpoint for backend and algorithms tracks
+
+- Backend continuation point re-confirmed: sprint 1/session 4, Channel writer completion on producer failure.
+- Added explicit project-level pointer to the second algorithms chat via `algorithms.md`.
+- Important limitation: detailed algorithm-task history was not present in repository files at checkpoint time, so algorithm progress must be reconstructed from that chat before assigning readiness.
+- Repository transfer expectation: commit and push `HANDOFF.md`, `profile.md`, `plan.md`, `progress.md`, `algorithms.md`, `README.md`, `sprints/` and `sessions/` before switching computers.
 ## Baseline checkpoint — 2026-08-21
 
 - Likely demonstrated range: Middle in foundational backend reasoning, with isolated Middle+ signals in distributed messaging; confidence medium-low because evidence is sparse and much of the stronger work was guided.

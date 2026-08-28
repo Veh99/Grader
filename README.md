@@ -8,6 +8,7 @@
 - `profile.md` — цель, опыт и калибровка роли.
 - `plan.md` — адаптивная программа на 2–3 месяца.
 - `progress.md` — оценки и наблюдаемое evidence.
+- `algorithms.md` — отдельный трек алгоритмических задач из второго чата.
 - `sprints/` — текущие учебные спринты.
 - `sessions/` — отчёты отдельных сессий.
 - `evidence/repositories/` — read-only Git submodules с проектами кандидата.
@@ -16,7 +17,7 @@
 
 ```powershell
 git clone --recurse-submodules https://github.com/Veh99/Grader.git
-Set-Location 'dotnet-interview-prep'
+Set-Location 'Grader'
 git submodule status --recursive
 ./scripts/Test-Workspace.ps1
 ```
@@ -46,7 +47,7 @@ git submodule update --init --recursive
 
 ```powershell
 git status
-git add HANDOFF.md progress.md sessions sprints
+git add HANDOFF.md profile.md plan.md progress.md algorithms.md README.md sessions sprints
 git commit -m "Record interview preparation progress"
 git push
 ```

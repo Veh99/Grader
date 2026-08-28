@@ -6,6 +6,8 @@
 
 Бюджет подтверждён кандидатом. Все упражнения выполняются с live-coding narration: requirements → assumptions → plan → meaningful decisions → predicted test result → debrief. Это входит в указанные 8 часов, а не добавляется сверху.
 
+Параллельный алгоритмический чат учитывать отдельно по `algorithms.md`; backend sprint не считать пройденным за счёт алгоритмического прогресса.
+
 ## Сессия 1 — EF Core query shape (75 минут)
 
 ### Observable outcomes
