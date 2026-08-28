@@ -1,6 +1,6 @@
 # Handoff
 
-Обновлено: 2026-08-28
+Обновлено: 2026-08-28, audit update
 
 ## Цель
 
@@ -23,7 +23,9 @@
 
 Спринт 1, сессия 4: async и bounded pipeline. Тема находится в состоянии `learning`.
 
-Уже разобрано:
+Важно: старый handoff от 2026-08-25 указывал остановку на вопросе `ProduceAsync`. 2026-08-28 кандидат сообщил, что фактическая последняя точка в интервью-чате уже была дальше — проверка другого метода, предположительно `CollectAsync`. Audit репозитория и GitHub показал, что `CollectAsync` нигде не сохранён, а `progress.md` заканчивается записью `sprint 1/session 4.2`. Поэтому `ProduceAsync` считать stale fallback, а не актуальной точкой продолжения.
+
+Что точно разобрано и зафиксировано:
 
 - вызов `async`-метода начинается сразу и идёт до первого incomplete `await`;
 - `ToArray()` перечисляет LINQ и вызывает все 10 000 `LoadAsync`;
@@ -34,31 +36,15 @@
 - cancellation работает только при наблюдении токена нижележащей операцией;
 - `WaitAsync` должен завершиться до входа в `try/finally`, иначе возможен лишний `Release`.
 
-Текущий незавершённый вопрос:
+Как продолжить интервью-чат без отката:
 
-```csharp
-static async Task ProduceAsync(
-    IAsyncEnumerable<int> ids,
-    ChannelWriter<int> writer,
-    CancellationToken cancellationToken)
-{
-    await foreach (var id in ids.WithCancellation(cancellationToken))
-    {
-        await writer.WriteAsync(id, cancellationToken);
-    }
+1. Сначала восстановить из контекста чата последний snippet/вопрос по `CollectAsync` и записать его в `progress.md` или новый файл `sessions/YYYY-MM-DD-async-collectasync.md`.
+2. Если контекст чата недоступен, прямо спросить кандидата прислать/пересказать `CollectAsync`; не начинать заново с `ProduceAsync`, кроме как для короткой consistency-check.
+3. Оценить ответ по обычной rubric: correctness, depth, production judgment, communication. Отдельно отметить assistance type: если кандидат отвечает после восстановления из файла/объяснения, это не `independent` evidence.
+4. После `CollectAsync` закрыть оставшиеся пункты async pipeline: producer completion/error propagation, per-item error contract, cancellation, input-order preservation и bounded worker implementation.
+5. Выполнить delayed retest по EF tracking, индексам и READ COMMITTED.
 
-    writer.Complete();
-}
-```
-
-Нужно спросить кандидата: что произойдёт с consumers, ожидающими `ReadAllAsync()`, если enumeration или `WriteAsync` выбросит исключение до `writer.Complete()`, и как гарантировать завершение writer с передачей ошибки.
-
-После этого:
-
-1. Научить producer использовать `try/catch/finally` и `TryComplete(error)`.
-2. Разобрать per-item error contract, cancellation и сохранение input order.
-3. Перейти к практической bounded-channel реализации с 20 consumers.
-4. Выполнить delayed retest по EF tracking, индексам и READ COMMITTED.
+Минимальный expected focus для `CollectAsync`, если snippet восстановить нельзя: проверить, не создаёт ли метод unbounded tasks/list growth; как он завершает consumers при producer/consumer fault; как агрегирует результаты, ошибки и cancellation; сохраняет ли input order; есть ли timeout/backpressure и deterministic completion.
 
 ## Второй чат: алгоритмические задачи
 

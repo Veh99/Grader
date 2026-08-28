@@ -1,6 +1,6 @@
 # Прогресс подготовки
 
-Обновлено: 2026-08-28
+Обновлено: 2026-08-28, audit update
 
 ## Текущий статус
 
@@ -460,7 +460,10 @@
 
 ### 2026-08-28 — portability checkpoint for backend and algorithms tracks
 
-- Backend continuation point re-confirmed: sprint 1/session 4, Channel writer completion on producer failure.
+- Backend continuation point initially re-confirmed incorrectly as sprint 1/session 4, Channel writer completion on producer failure.
+- Correction from candidate on 2026-08-28: actual interview-chat point had advanced beyond `ProduceAsync` to another async review, likely `CollectAsync`.
+- Audit result: repository files and GitHub contain no `CollectAsync` occurrence; `progress.md` last concrete async evidence is still `sprint 1/session 4.2` and the old portability pause.
+- Consequence: `ProduceAsync` must be treated as stale fallback. Next session should first recover the latest `CollectAsync` snippet from chat context or ask candidate to provide it, then record the result before continuing.
 - Added explicit project-level pointer to the second algorithms chat via `algorithms.md`.
 - Important limitation: detailed algorithm-task history was not present in repository files at checkpoint time, so algorithm progress must be reconstructed from that chat before assigning readiness.
 - Repository transfer expectation: commit and push `HANDOFF.md`, `profile.md`, `plan.md`, `progress.md`, `algorithms.md`, `README.md`, `sprints/` and `sessions/` before switching computers.
