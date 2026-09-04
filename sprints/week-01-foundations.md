@@ -1,5 +1,7 @@
 # Спринт 1 — фундамент Middle+ backend
 
+Статус с 2026-08-31: встроен в новый `accelerated-14-day.md`. Незавершённые applied exercises, включая `CollectAsync`, перенесены туда и не считаются отменёнными.
+
 Период: ближайшие 7 дней  
 Бюджет: 8 часов (рабочее допущение)  
 Цель: закрыть prerequisites, выявленные baseline; не гнаться за количеством interview questions.
@@ -7,6 +9,23 @@
 Бюджет подтверждён кандидатом. Все упражнения выполняются с live-coding narration: requirements → assumptions → plan → meaningful decisions → predicted test result → debrief. Это входит в указанные 8 часов, а не добавляется сверху.
 
 Параллельный алгоритмический чат учитывать отдельно по `algorithms.md`; backend sprint не считать пройденным за счёт алгоритмического прогресса.
+
+## Foundation layer с 2026-08-31
+
+Оставшиеся занятия спринта включают 10–15 минут rapid retrieval внутри уже выделенного времени. Вопросы задаются по одному, без вариантов ответа. Формат ответа: определение -> механизм -> пример -> отличие/ограничение.
+
+Первый calibration set:
+
+- что такое асинхронность и чем она отличается от параллелизма и многопоточности;
+- stack и managed heap в .NET без правила «value type всегда на стеке»;
+- зачем нужен GC, что такое GC roots и поколения;
+- что такое транзакция и какие свойства описывает ACID;
+- таблица, primary/foreign key и индекс;
+- queue, producer, consumer и acknowledgment в брокере;
+- monolith, modular monolith и microservices: границы и операционная цена;
+- unit, integration и end-to-end test: какое доказательство даёт каждый уровень.
+
+Термины повторяются по расписанию из `fundamentals.md`. Foundation score хранится отдельно от applied score текущей сессии.
 
 ## Сессия 1 — EF Core query shape (75 минут)
 

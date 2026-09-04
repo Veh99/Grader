@@ -8,7 +8,12 @@
 - `profile.md` — цель, опыт и калибровка роли.
 - `plan.md` — адаптивная программа на 2–3 месяца.
 - `progress.md` — оценки и наблюдаемое evidence.
+- `fundamentals.md` — базовая терминология, foundation scores и интервалы повторения.
+- `timed-rubric.md` — timeboxes и отдельная оценка fluency для определений, complexity и практики.
+- `learning-sources.md` — правила отбора книг, документации, видео и внешних задач.
+- `materials/` — ежедневные theory packages и маршруты практики.
 - `algorithms.md` — отдельный трек алгоритмических задач из второго чата.
+- `sql.md` — восстановленный практический SQL-трек и точка продолжения LeetCode SQL 50.
 - `sprints/` — текущие учебные спринты.
 - `sessions/` — отчёты отдельных сессий.
 - `evidence/repositories/` — read-only Git submodules с проектами кандидата.
@@ -47,7 +52,7 @@ git submodule update --init --recursive
 
 ```powershell
 git status
-git add HANDOFF.md profile.md plan.md progress.md algorithms.md README.md sessions sprints
+git add HANDOFF.md profile.md plan.md progress.md fundamentals.md timed-rubric.md learning-sources.md algorithms.md sql.md README.md materials sessions sprints
 git commit -m "Record interview preparation progress"
 git push
 ```

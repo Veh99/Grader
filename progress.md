@@ -1,20 +1,21 @@
 # Прогресс подготовки
 
-Обновлено: 2026-08-28, audit update
+Обновлено: 2026-09-01, day 1 assessment
 
 ## Текущий статус
 
-- Фаза: baseline diagnostic.
+- Фаза: 14-дневный accelerated course, день 1 завершён; correction bridge перед applied-днём 2.
 - Целевой уровень: уверенный Middle+; Senior-сигналы как differentiator.
 - Readiness: не оценена — пока отсутствует независимое evidence.
 - Assistance policy: closed-book, без поиска и AI; ответы `independent`, если подсказки не запрошены.
 - Параллельный алгоритмический чат ведётся отдельно; переносимый source of truth: `algorithms.md`.
+- Фундаментальная терминология теперь ведётся отдельным retrieval-треком в `fundamentals.md`; foundation score не заменяет applied evidence.
 
 ## Домены
 
 | Домен | Статус | Последний score | Assistance | Слабый сигнал | Retest |
 |---|---|---:|---|---|---|
-| C# / async / runtime | learning | 2.0/4 async delayed retest | independent | WhenAll ordering/task fan-out and semaphore failure handling not retained | 2026-08-22–23 |
+| C# / async / runtime | learning | 1.5–2.0/4 day 1 timed assessment | mixed | concurrency/thread model, Task/state machine, cancellation, WhenAll and bounded rewrite | 2026-09-03–04 |
 | ASP.NET Core / API | learning | 2.0/4 | independent | Fire-and-forget, scoped lifetime, backpressure, 202 semantics | 2026-08-20–21 |
 | SQL / EF Core | provisional | 2.5/4 guided application | assisted | Pessimistic flow понят; альтернативы и trade-offs ещё не проверены | 2026-08-20–21 |
 | Testing / code quality | provisional | 2.5/4 focused retrieval | prompted-after-coaching | Граница real DB понятна; concurrent test design ещё не применён | after teaching |
@@ -467,6 +468,92 @@
 - Added explicit project-level pointer to the second algorithms chat via `algorithms.md`.
 - Important limitation: detailed algorithm-task history was not present in repository files at checkpoint time, so algorithm progress must be reconstructed from that chat before assigning readiness.
 - Repository transfer expectation: commit and push `HANDOFF.md`, `profile.md`, `plan.md`, `progress.md`, `algorithms.md`, `README.md`, `sprints/` and `sessions/` before switching computers.
+
+### 2026-08-31 — curriculum correction: foundation retrieval
+
+- Candidate observation: текущая подготовка слишком быстро уходит в глубину; есть риск не пройти ранний technical screen из-за неуверенных ответов на базовые определения.
+- Decision: добавить постоянный foundation layer по C#/CLR, ASP.NET/HTTP, databases, messaging, architecture и testing/operations.
+- Format: 10–15 минут в каждой содержательной сессии, один вопрос за раз, closed-book, ответ по структуре definition -> mechanism -> example -> distinction/limitation.
+- Evidence policy: оценивать factual correctness и communication отдельно от applied depth; термин считается удержанным только после delayed retrieval, а не сразу после объяснения.
+- Current exercise state: новый `CollectAsync` code-review snippet выдан и сохранён в `sessions/2026-08-31-async-collectasync.md`, ответ ещё не получен. Сначала короткая async foundation calibration, затем возврат к review без раскрытия решения.
+- Assistance: изменение плана инициировано кандидатом; technical evidence не оценивалось.
+
+### 2026-08-31 — switch to 14-day accelerated course
+
+- Candidate request: двухдневные тематические кластеры, несколько часов теории/источников ежедневно, затем практика и полный опрос по материалу.
+- Active schedule: `sprints/accelerated-14-day.md`; days 1–12 include около 4 часов theory package плюс 1.5–2.5 часа практики/опроса, затем два дня mock; около 70–82 часов за цикл.
+- Timed evidence: `timed-rubric.md` для определений, complexity analysis, practical tasks и rapid screen.
+- Final gate: domain ladder interview. В каждом домене сложность растёт от definition до design/failure modes; при stop condition фиксируется точный knowledge frontier и интервью переходит к следующему домену без немедленного обучения.
+- External calibration: начать отклики с дня 7 и учитывать реальные screening/interview failures как отдельное evidence, не смешивая их с coached attempts.
+- Current point: до technical evidence дня 1; `CollectAsync` перенесён в applied-блок дня 2.
+
+### 2026-08-31 — workload clarification and learning-source contract
+
+- Candidate clarification: 4 часа означают размер ежедневного theory package, а не общий дневной timebox.
+- Daily workload: 4 часа reading/video/aggregated theory плюс отдельные chat retrieval и practical tasks.
+- Source contract: official docs as ground truth; original Russian digest; verified secondary materials such as Metanit or selected YouTube videos; every item has duration, purpose and required/optional marker.
+- Practice contract: external platforms используются только там, где они проверяют нужный навык. Например, LeetCode SQL 50 подходит для query syntax/relational reasoning, но индексы, query plans, transactions, locks и EF semantics проверяются отдельными production-shaped tasks.
+- Technical evidence: не оценивалось.
+
+### 2026-08-31 — accelerated course day 1 assigned
+
+- Cluster: async, concurrency, multithreading and parallelism.
+- Material: `materials/day-01-async-concurrency.md`.
+- Theory route: 240 minutes; original digest plus official Microsoft docs, Stephen Toub deep dive and one selected Russian video.
+- Practice: classification, code trace, sequential-to-concurrent rewrite, cancellation review and 90-second explanation.
+- Assessment state: `assigned`; no score until candidate reports completion and passes the timed closed-book chat assessment.
+
+### 2026-09-01 — accelerated course day 1 assessment
+
+- Mode: immediate closed-book timed retrieval after the theory package; not delayed retention evidence.
+- Result: `learning`, gate not passed. Summary correctness `1.5–2.0/4`, depth `1.5/4`, communication `2.5/4`, timing about `2.8/4` across heterogeneous questions.
+- Strong signals: throughput vs latency, execution to first incomplete `await`, `Sleep` vs `Delay`, deferred `Select`, unbounded fan-out and unsafe shared `List<T>`.
+- Blocking gaps: one-thread concurrency, Task/thread/completion model, CPU-bound and `Task.Run`, continuation registration, cooperative cancellation state, `WhenAll` completion/fault/cancel semantics, compiling ordered rewrite and bounded execution.
+- Final code attempt took about 10 minutes for a 5-minute question and did not compile because the async lambda returned no value; boundedness was not answered.
+- Full evidence: `sessions/2026-09-01-day-01-async-assessment.md`.
+- Next: day 2 correction packet, then `CollectAsync`/bounded pipeline; delayed retest on 2026-09-03 or 2026-09-04.
+
+### 2026-09-01 — accelerated course day 2 assigned
+
+- Cluster continuation: task coordination, cancellation ownership, Channels, backpressure, thread safety and failure contracts.
+- Material: `materials/day-02-async-pipelines.md`.
+- Theory route: 240 minutes, based on current Microsoft Learn documentation and official .NET Blog deep dives.
+- Practice: failure trace, corrected `CollectAsync`, deterministic test design and primitive selection.
+- Assessment state: `assigned`; correction questions already answered today remain immediate learning evidence, not the final day 2 gate.
+- Curriculum addition requested by candidate: CPU execution and `TaskScheduler` basics are included in day 2; CPU/cache/.NET memory model and lock-free progress guarantees are required in days 3–4.
+
+### 2026-09-04 — accelerated course day 2 theory complete
+
+- Candidate reported completing all assigned day 2 materials, including the additional guided review of `SynchronizationContext`, `TaskScheduler`, `lock`/`Monitor`, `Mutex`, `Semaphore` and `SemaphoreSlim`.
+- Evidence state: `study-complete / assessment-pending`; explanations given during study remain guided or immediate evidence.
+- Next: closed-book timed retrieval, then `CollectAsync` code review, implementation and failure-oriented tests.
+
+### 2026-09-04 — day 2 closed-book checkpoint paused before CollectAsync
+
+- Candidate requested to stop async assessment before the 12-minute `CollectAsync` review.
+- `ThreadPool` / `TaskScheduler` / `SynchronizationContext`: `2.0/4` correctness; correctly traced pool work and UI continuation, but misstated ThreadPool as storage, TaskScheduler as choosing thread count, and context capture as a universal same-thread guarantee.
+- `Task.WhenAll` completion/status: `3.0/4`; correctly identified completion at the slowest task, fault precedence and lack of automatic sibling cancellation. Multiple-exception observation: `1.0/4`; did not know `Task.Exception` / `AggregateException.InnerExceptions` or await unwrapping.
+- Channel boundedness/backpressure: `3.0/4`; correctly identified bounded queue and `10 + 3 = 13` buffered/active items, but initially said a thread waits during `WriteAsync` backpressure.
+- Producer fault/completion: `3.0/4`; independently found the missing `TryComplete`, consumer hang and unreachable `await producer`; proposed preserving the exception for channel completion, but explicit rethrow required correction.
+- Cancellation through broad `catch (Exception)`: `1.5/4`; incorrectly expected pipeline cancellation despite `OperationCanceledException` being converted to per-item failure. Token-source distinction and exception-filter ordering required correction.
+- Next exact step: optional 12-minute closed-book review of `sessions/2026-08-31-async-collectasync.md`; do not restart the foundation checkpoint.
+
+### 2026-09-04 — accelerated course day 3 assigned
+
+- Cluster: CLR managed execution, CPU/memory hierarchy, value/reference semantics, stack frames, managed heap, boxing, GC roots/generations/LOH, disposal and managed leaks.
+- Material: `materials/day-03-clr-memory-gc.md`.
+- Theory route: 240 minutes with original Russian digest, current Microsoft Learn and a required expert video by .NET GC Architect Maoni Stephens.
+- Assessment state: `assigned`; practice and closed-book assessment start only after candidate reports completing the package.
+- Day 4 remains responsible for .NET memory model, atomicity/visibility/reordering, `Volatile`, `Interlocked`, CAS and lock-free progress guarantees.
+
+### 2026-09-04 — SQL dialogue audit
+
+- Previously missing SQL history was recovered from the Codex task `Найди последний вопрос по алгоритмам` and written to `sql.md`.
+- Completed/covered sequence: LeetCode `1757`, `584`, `1148`, `1683`, `1378`, `1068`, `1581`, `197`; current task is `1661`.
+- Strongest independent signals: basic filtering with explicit NULL handling, `LENGTH`, and a straightforward `INNER JOIN`.
+- Main gaps: syntax fluency, independent JOIN construction, aggregation/grouping, conditional aggregation and dialect discipline.
+- Exact next step: independent PostgreSQL re-attempt of `1661` after the already completed guided explanation of `FILTER`; do not replay the shown solution first.
+
 ## Baseline checkpoint — 2026-08-21
 
 - Likely demonstrated range: Middle in foundational backend reasoning, with isolated Middle+ signals in distributed messaging; confidence medium-low because evidence is sparse and much of the stronger work was guided.
@@ -492,5 +579,6 @@
 ## Interview execution evidence
 
 - 2026-08-21: недельный бюджет 8 часов подтверждён.
+- 2026-09-01: первый 240-минутный theory package и расширенная практика/опрос завершены; интенсивная нагрузка подтверждена одним днём, устойчивость графика ещё проверяется.
 - Кандидат самостоятельно сформулировал ценность narration на live coding: демонстрация reasoning снижает неопределённость интервьюера и позволяет оценить правильный ход мысли при локальной ошибке.
 - State: conceptual understanding; practical evidence ещё отсутствует. Narration protocol встроен во все coding exercises.

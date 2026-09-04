@@ -1,8 +1,18 @@
 # Адаптивный план подготовки
 
-Обновлено: 2026-08-28
+Обновлено: 2026-08-31, accelerated course update
 
 План предварительный до завершения baseline. Приоритет пересчитывается как `важность для роли × дефицит навыка × ценность prerequisite`.
+
+## Активный режим: 14-дневный интенсив
+
+До завершения ускоренного цикла основным расписанием является `sprints/accelerated-14-day.md`, а правила timed evidence находятся в `timed-rubric.md`. Цель интенсива — быстро покрыть screening fundamentals, получить applied evidence и выйти на реальные собеседования, а не объявить все темы mastered за две недели.
+
+Рабочая нагрузка: в дни 1–12 около 4 часов чистой теории/чтения/видео плюс 1.5–2.5 часа практики и опроса; дни 13–14 — итоговые mock. Суммарная оценка цикла — около 70–82 часов. Старый бюджет 8 часов в неделю остаётся долгосрочным режимом после интенсива. С 7-го дня допускается начинать отклики; реальные интервью фиксируются как отдельное external evidence и влияют на следующий план.
+
+Каталог и правила отбора внешних материалов находятся в `learning-sources.md`. Дневной пакет обязан содержать не просто список ссылок, а маршрут с ожидаемой длительностью и результатом каждого пункта.
+
+Шесть кластеров проходят по два дня, дни 13–14 отданы итоговому ladder interview и разбору. Внутри каждого кластера первый день строит модель и терминологию, второй проверяет delayed retrieval и применение.
 
 ## Адаптивная корректировка 2026-08-18
 
@@ -23,6 +33,34 @@
 
 Для блока индексов начать с B-tree и связи `WHERE`/`JOIN`/`ORDER BY` с порядком колонок составного индекса; затем перейти к selectivity, covering indexes, write amplification и чтению `EXPLAIN (ANALYZE, BUFFERS)`.
 
+## Адаптивная корректировка 2026-08-31 — фундаментальный screening layer
+
+Кандидат справедливо отметил риск: глубокое production-упражнение не компенсирует неспособность кратко ответить на базовый вопрос скрининга. Подготовка переводится в двухслойный режим:
+
+1. `Foundation retrieval` — определения и причинная модель простыми словами.
+2. `Applied depth` — код, диагностика, проектирование, failure modes и trade-offs.
+
+Каждая содержательная сессия начинается или заканчивается 10–15 минутами фундаментальных вопросов, по одному за раз. На один термин ожидается ответ длительностью 60–120 секунд по структуре:
+
+1. Что это такое.
+2. Как работает на базовом уровне.
+3. Зачем или где применяется.
+4. Пример.
+5. Одно важное ограничение либо отличие от близкого понятия.
+
+Фундаментальный pass: не менее 3/4 по correctness и communication в независимом delayed retrieval. Applied pass остаётся отдельным: правильное определение не закрывает code review/coding/design, а сильное практическое решение не закрывает пробел в терминологии.
+
+Повторение: новый термин -> следующий учебный день -> через 3 дня -> через 7 дней -> через 14 дней. Ошибочный ответ возвращает термин на ближайшее повторение с новым wording. Карта тем и evidence ведутся в `fundamentals.md`.
+
+Приоритетные foundation-домены:
+
+- C# и CLR: value/reference semantics, stack/managed heap, GC roots/generations/LOH, boxing, disposal, async/concurrency/parallelism, Task/Thread/ThreadPool.
+- ASP.NET Core и HTTP: request pipeline, middleware, DI lifetimes, HTTP methods/statuses, authentication/authorization, cancellation/timeouts.
+- Базы данных: DBMS/table/row/key/index, normalization, transaction/ACID, isolation, locks/MVCC, joins и query plan.
+- Messaging: queue/topic, producer/consumer, ack, delivery semantics, ordering, retry/DLQ, backpressure.
+- Архитектура: monolith/modular monolith/microservices, sync/async communication, consistency, availability, scalability и fault tolerance.
+- Testing/operations: unit/integration/e2e, logs/metrics/traces, health checks, CI/CD, container basics.
+
 ### Testing prerequisite bridge
 
 Диагностика показала отсутствие модели test boundaries. До оценочных testing-сценариев пройти:
@@ -34,11 +72,13 @@
 5. Проверка constraints, transactions, concurrency и mapping DB errors в API contract.
 6. Test reliability: deterministic synchronization, cleanup, parallel isolation и диагностика flaky tests.
 
-## Распределение времени
+## Распределение времени после интенсива
 
 - 60% — слабые must-have области.
 - 25% — форматы интервью: rapid screen, coding, review, debugging, design, project deep-dive.
 - 15% — Senior differentiators.
+
+Внутри must-have и interview execution резервируется 90–120 минут в неделю на foundation retrieval и spaced repetition. Это входит в 8 часов, а не добавляется сверху; оставшееся время сохраняется за applied depth.
 
 При подтверждённых 8 часах в неделю: 64–96 часов за 8–12 недель.
 
@@ -79,8 +119,8 @@ Gate: получить независимые оценки и выделить 3
 
 ## Блок 1 — C#, async и runtime (недели 1–2)
 
-- Результат: причинно объяснять async/cancellation/thread pool, lifetime ресурсов, allocations/GC и concurrency; находить дефекты в коде.
-- Практика: реализация bounded-concurrency pipeline с отменой, таймаутами и тестами.
+- Результат: причинно объяснять async/cancellation, связь CPU/OS thread/ThreadPool/`TaskScheduler`, lifetime ресурсов, allocations/GC, .NET memory model и concurrency; различать blocking и lock-free progress guarantees; находить дефекты в коде.
+- Практика: реализация bounded-concurrency pipeline с отменой, таймаутами и тестами; затем race/CAS exercise с `Interlocked`, `Volatile`, lock-free caveats и измерением contention.
 - Pass: не менее 3/4 по correctness и depth, без unsafe concurrency; delayed retest через 2–3 и 10–14 дней.
 
 ## Блок 2 — ASP.NET Core и контракты API (недели 2–3)
